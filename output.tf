@@ -7,3 +7,6 @@ output "id" {
 output "thumbprint" {
   value = data.azurerm_key_vault_certificate.cert.thumbprint
 }
+output "key_vault_id" {
+  value = data.azurerm_key_vault.kv.id
+}
