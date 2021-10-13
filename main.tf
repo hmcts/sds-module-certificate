@@ -14,6 +14,11 @@ data "azurerm_key_vault" "kv" {
 data "azurerm_key_vault_certificate" "cert" {
   name         = local.cert_name
   key_vault_id = data.azurerm_key_vault.kv.id
+
+  depends_on = [
+    azurerm_role_assignment.kv_access,
+    azurerm_key_vault_access_policy.policy
+  ]
 }
 
 ## Key Vault Access
