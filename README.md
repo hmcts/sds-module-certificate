@@ -1,4 +1,4 @@
-# sds-module-certificate
+# terraform-module-certificate
 
 This module is used to add object ID access to the SDS Acme DTS (acmedtssds{env}) Key Vault where SSL Certificates are stored.
 
