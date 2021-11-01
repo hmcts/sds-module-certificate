@@ -10,3 +10,6 @@ output "thumbprint" {
 output "key_vault_id" {
   value = data.azurerm_key_vault.kv.id
 }
+output "url" {
+  value = replace(data.azurerm_key_vault_certificate.cert.secret_id, "/${data.azurerm_key_vault_certificate.cert.version}", "")
+}
