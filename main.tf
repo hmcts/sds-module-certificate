@@ -17,8 +17,7 @@ data "azurerm_key_vault_certificate" "cert" {
   key_vault_id = data.azurerm_key_vault.kv.id
 
   depends_on = [
-    azurerm_role_assignment.kv_access,
-    azurerm_key_vault_access_policy.policy
+    azurerm_role_assignment.kv_access
   ]
 }
 
