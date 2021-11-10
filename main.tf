@@ -1,9 +1,10 @@
 
 
 locals {
-  env_long_name = var.environment == "sbox" ? "sandbox" : var.environment == "stg" ? "staging" : var.environment
-  host_name     = local.env_long_name == "prod" ? "${var.domain_prefix}.platform.hmcts.net" : "${var.domain_prefix}.${local.env_long_name}.platform.hmcts.net"
-  cert_name     = replace(local.host_name, ".", "-")
+  domain_dns_prefix = var.domain_dns_prefix == "" ? var.environment : var.domain_dns_prefix
+  env_long_name     = local.domain_dns_prefix == "sbox" ? "sandbox" : local.domain_dns_prefix == "stg" ? "staging" : local.domain_dns_prefix
+  host_name         = local.env_long_name == "prod" ? "${var.domain_prefix}.platform.hmcts.net" : "${var.domain_prefix}.${local.env_long_name}.platform.hmcts.net"
+  cert_name         = replace(local.host_name, ".", "-")
 }
 
 ## Get Secret
