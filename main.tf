@@ -29,15 +29,4 @@ resource "azurerm_role_assignment" "kv_access" {
   role_definition_name = "Key Vault Secrets User"
   principal_id         = var.object_id
 }
-data "azurerm_client_config" "this" {
-}
-resource "azurerm_key_vault_access_policy" "policy" {
-  count                   = var.object_id == "" ? 0 : 1
-  key_vault_id            = data.azurerm_key_vault.kv.id
-  tenant_id               = data.azurerm_client_config.this.tenant_id
-  object_id               = var.object_id
-  key_permissions         = []
-  secret_permissions      = ["Get", "List"]
-  certificate_permissions = ["Get", "List"]
-  storage_permissions     = []
-}
+
