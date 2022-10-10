@@ -8,13 +8,10 @@ locals {
 }
 
 ## Get Secret
-data "azurerm_key_vault" "kv" {
-  name                = "acmedtssds${var.environment}"
-  resource_group_name = "sds-platform-${var.environment}-rg"
-}
+
 data "azurerm_key_vault_certificate" "cert" {
   name         = local.cert_name
-  key_vault_id = data.azurerm_key_vault.kv.id
+  key_vault_id = var.key_vault_id
 
   depends_on = [
     azurerm_role_assignment.kv_access,
@@ -25,7 +22,7 @@ data "azurerm_key_vault_certificate" "cert" {
 ## Key Vault Access
 resource "azurerm_role_assignment" "kv_access" {
   count                = var.object_id == "" ? 0 : 1
-  scope                = data.azurerm_key_vault.kv.id
+  scope                = var.key_vault_id
   role_definition_name = "Key Vault Secrets User"
   principal_id         = var.object_id
 }
@@ -33,7 +30,7 @@ data "azurerm_client_config" "this" {
 }
 resource "azurerm_key_vault_access_policy" "policy" {
   count                   = var.object_id == "" ? 0 : 1
-  key_vault_id            = data.azurerm_key_vault.kv.id
+  key_vault_id            = var.key_vault_id
   tenant_id               = data.azurerm_client_config.this.tenant_id
   object_id               = var.object_id
   key_permissions         = []

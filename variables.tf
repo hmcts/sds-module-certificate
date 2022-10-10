@@ -17,3 +17,7 @@ variable "object_id" {
   description = "(Optional) Object ID to grant access"
   default     = ""
 }
+
+variable "key_vault_id" {
+  type        = string
+}
